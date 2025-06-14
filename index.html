@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Nasir</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right bottom, #e0f2fe, #d1e9ff); /* Soft blue gradient */
+        }
+        .profile-card {
+            background-color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 1.5rem;
+            animation: fadeIn 1s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .skill-badge {
+            background-color: #a7f3d0; /* Light green */
+            color: #065f46; /* Dark green text */
+            border-radius: 9999px;
+            padding: 0.5rem 1.25rem;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .skill-badge:hover {
+            transform: translateY(-3px);
+        }
+        .icon-link {
+            transition: color 0.3s, transform 0.3s;
+        }
+        .icon-link:hover {
+            color: #2563eb; /* Blue on hover */
+            transform: translateY(-2px);
+        }
+        .active-btn {
+            background-color: #2563eb;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .active-btn:hover {
+            background-color: #1e40af;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-6">
+
+    <div class="profile-card w-full max-w-4xl p-8 md:p-12 text-center relative">
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-blue-400 to-green-400 opacity-10 rounded-xl pointer-events-none"></div>
+
+        <div class="flex flex-col md:flex-row items-center md:text-left relative z-10">
+            <div class="flex-shrink-0 mb-6 md:mb-0 md:mr-8">
+                <img src="https://via.placeholder.com/150/81C784/FFFFFF?text=Foto+Anda" alt="Foto Profil" class="w-36 h-36 rounded-full object-cover border-4 border-blue-400 shadow-lg animate-pulse">
+            </div>
+            <div>
+                <h1 class="text-4xl font-extrabold text-gray-800 leading-tight mb-2">Halo! Saya Muhammad Nasir</h1>
+                <p class="text-xl text-blue-600 font-semibold mb-4">IT Support Spesialis & Problem Solver</p>
+                <p class="text-gray-700 leading-relaxed text-lg mb-6">
+                    Dengan pengalaman lebih dari <span class="font-bold text-green-600">5 tahun</span> di dunia IT Support, saya adalah individu yang **ceria, aktif, dan bersemangat** dalam membantu pengguna mengatasi berbagai tantangan teknologi. Saya bangga menjadi jembatan antara teknologi dan kepuasan pengguna, selalu siap menghadapi masalah dengan senyum dan solusi terbaik!
+                </p>
+
+                <div class="flex justify-center md:justify-start space-x-6 mb-8">
+                    <a href="mailto:muhnasirhasibuan@gmail.com" class="icon-link text-gray-500 hover:text-blue-500 text-3xl"><i class="fas fa-envelope"></i></a>
+                    <a href="https://linkedin.com/in/namaanda" target="_blank" class="icon-link text-gray-500 hover:text-blue-500 text-3xl"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://wa.me/6289629055652" target="_blank" class="icon-link text-gray-500 hover:text-blue-500 text-3xl"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <hr class="border-t-2 border-gray-200 my-8">
+
+        <div class="text-left relative z-10">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center justify-center md:justify-start">
+                <i class="fas fa-tools text-yellow-500 mr-3"></i> Keahlian Saya
+            </h2>
+            <div class="flex flex-wrap justify-center md:justify-start gap-3 mb-8">
+                <span class="skill-badge">Troubleshooting Hardware & Software</span>
+                <span class="skill-badge">Network Configuration</span>
+                <span class="skill-badge">Sistem Operasi (Windows/Linux/macOS)</span>
+                <span class="skill-badge">Manajemen Tiket & SLA</span>
+                <span class="skill-badge">Remote Support</span>
+                <span class="skill-badge">IT Security Basics</span>
+                <span class="skill-badge">Microsoft Office Suite</span>
+                <span class="skill-badge">User Training & Support</span>
+                <span class="skill-badge">Problem Solving</span>
+                <span class="skill-badge">Komunikasi Efektif</span>
+            </div>
+
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center justify-center md:justify-start">
+                <i class="fas fa-briefcase text-purple-500 mr-3"></i> Pengalaman Kerja
+            </h2>
+            <div class="mb-6">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-1">IT Support</h3>
+                <p class="text-lg text-gray-600 mb-2">PT Fatahillah Anugerah Nibras, Tangerang Selatan</p>
+                <p class="text-md text-gray-500 italic mb-3">Januari 2021 - Now</p>
+                <ul class="list-disc list-inside text-gray-700 leading-relaxed space-y-2">
+                    <li>Memberikan dukungan teknis harian kepada lebih dari 80 pengguna dalam penggunaan perangkat keras, perangkat lunak, dan jaringan.</li>
+                    <li>Memecahkan masalah perangkat keras dan perangkat lunak dengan cepat dan efisien, meningkatkan produktivitas pengguna.</li>
+                    <li>Mengelola dan memelihara jaringan lokal, termasuk pemeliharaan rutin, pembaruan, dan pemecahan masalah.</li>
+                    <li>Menginstal, mengonfigurasi, dan memelihara perangkat keras, termasuk komputer, printer, dan perangkat jaringan.</li>
+                    <li>Melakukan pembaruan sistem operasi dan perangkat lunak secara berkala untuk memastikan Keamanan dan kinerja yang optimal.</li>
+                    <li>Menyediakan dukungan jarak jauh kepada pengguna melalui remote desktop dan perangkat lunak bantuan teknis.</li>
+                    <li>Mengelola inventaris perangkat keras dan perangkat lunak perusahaan.</li>
+                    <li>Melakukan pemeliharaan rutin pada perangkat keras, seperti membersihkan komputer dan mengganti suku cadang yang rusak.</li>
+                </ul>
+            </div>
+            <div class="mb-6"></div>
+                <h3 class="text-2xl font-semibold text-gray-700 mb-1">IT Support</h3>
+                <p class="text-lg text-gray-600 mb-2">PT Bicom Mitra Solusindo, Jakarta Barat</p>
+                <p class="text-md text-gray-500 italic mb-3">Desember 2018 - September 2020</p>
+                <ul class="list-disc list-inside text-gray-700 leading-relaxed space-y-2">
+                    <li>Memberikan dukungan teknis harian kepada lebih dari 200 pengguna, menyelesaikan masalah hardware, software, dan jaringan dengan tingkat kepuasan tinggi.</li>
+                    <li>Melakukan instalasi, konfigurasi, dan pemeliharaan sistem operasi serta aplikasi untuk memastikan operasional yang lancar.</li>
+                    <li>Mengelola sistem tiket dan memprioritaskan insiden untuk memenuhi Service Level Agreement (SLA).</li>
+                    <li>Melatih pengguna mengenai praktik terbaik IT untuk meningkatkan kemandirian dan mengurangi insiden berulang.</li>
+                </ul>
+            </div>
+            <div class="text-center md:text-left mt-10">
+                <a href="#" class="active-btn inline-block">Lihat CV Lengkap Saya! <i class="fas fa-download ml-2"></i></a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
