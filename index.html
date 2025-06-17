@@ -1,136 +1,476 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhammad Nasir</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Muhammad Nasir - IT Support</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#1a73e8', // Custom primary blue
+                        'secondary-gray': '#f8f9fa', // Light gray background
+                        'accent-green': '#34a853', // Accent for skills
+                        'accent-purple': '#8e24aa', // Accent for contact
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.7s ease-out forwards',
+                        'fade-in': 'fadeIn 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(to right bottom, #e0f2fe, #d1e9ff); /* Soft blue gradient */
         }
-        .profile-card {
-            background-color: #ffffff;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border-radius: 1.5rem;
-            animation: fadeIn 1s ease-out;
+        .hero-background {
+            background: linear-gradient(to right bottom, #1a73e8, #3f51b5); /* primary-blue to a darker blue */
+            position: relative;
+            overflow: hidden;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .parallax-bg {
+            background-image: url('https://images.unsplash.com/photo-1519389950473-47ab03c0fd04?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Replace with a high-quality relevant image */
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.15; /* Adjust opacity for subtle effect */
+            z-index: 0;
         }
-        .skill-badge {
-            background-color: #a7f3d0; /* Light green */
-            color: #065f46; /* Dark green text */
-            border-radius: 9999px;
-            padding: 0.5rem 1.25rem;
-            font-weight: 600;
-            transition: transform 0.2s;
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
-        .skill-badge:hover {
-            transform: translateY(-3px);
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
-        .icon-link {
-            transition: color 0.3s, transform 0.3s;
-        }
-        .icon-link:hover {
-            color: #2563eb; /* Blue on hover */
-            transform: translateY(-2px);
-        }
-        .active-btn {
-            background-color: #2563eb;
+
+        #scrollTopButton {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: #1a73e8; /* primary-blue */
             color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.75rem;
-            font-weight: 600;
-            transition: background-color 0.3s, transform 0.3s;
+            border-radius: 50%;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.2s ease;
+            z-index: 1000;
         }
-        .active-btn:hover {
-            background-color: #1e40af;
-            transform: translateY(-2px);
+
+        #scrollTopButton.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #scrollTopButton:hover {
+            transform: translateY(-3px) scale(1.05);
+            background-color: #3f51b5; /* slightly darker blue on hover */
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-6">
+<body class="bg-secondary-gray text-gray-800">
 
-    <div class="profile-card w-full max-w-4xl p-8 md:p-12 text-center relative">
-        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-blue-400 to-green-400 opacity-10 rounded-xl pointer-events-none"></div>
-
-        <div class="flex flex-col md:flex-row items-center md:text-left relative z-10">
-            <div class="flex-shrink-0 mb-6 md:mb-0 md:mr-8">
-                <img src="https://via.placeholder.com/150/81C784/FFFFFF?text=Foto+Anda" alt="Foto Profil" class="w-36 h-36 rounded-full object-cover border-4 border-blue-400 shadow-lg animate-pulse">
-            </div>
+    <header class="hero-background text-white py-20 px-6 relative">
+        <div class="parallax-bg"></div>
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-center text-center md:text-left relative z-10">
+            <img src="https://via.placeholder.com/200/FFFFFF/000000?text=Foto%20Anda" alt="Foto Profil Muhammad Nasir" 
+                 class="rounded-full w-48 h-48 object-cover border-8 border-white shadow-xl mb-6 md:mr-10 md:mb-0 transform transition-transform duration-500 hover:scale-105 hover:rotate-3">
+            
             <div>
-                <h1 class="text-4xl font-extrabold text-gray-800 leading-tight mb-2">Halo! Saya Muhammad Nasir</h1>
-                <p class="text-xl text-blue-600 font-semibold mb-4">IT Support Spesialis & Problem Solver</p>
-                <p class="text-gray-700 leading-relaxed text-lg mb-6">
-                    Dengan pengalaman lebih dari <span class="font-bold text-green-600">5 tahun</span> di dunia IT Support, saya adalah individu yang **ceria, aktif, dan bersemangat** dalam membantu pengguna mengatasi berbagai tantangan teknologi. Saya bangga menjadi jembatan antara teknologi dan kepuasan pengguna, selalu siap menghadapi masalah dengan senyum dan solusi terbaik!
-                </p>
+                <p class="text-xl font-light text-blue-200 mb-2 animate-fade-in-up">Halo, saya</p>
+                <h1 class="text-6xl font-extrabold mb-3 leading-tight animate-fade-in-up">Muhammad Nasir</h1>
+                <p class="text-3xl font-light text-blue-100 mb-4 animate-fade-in-up animation-delay-1">IT Support</p>
+                <!-- <p class="text-xl text-blue-200 mb-8 animate-fade-in-up animation-delay-2">Didedikasikan untuk solusi IT di PT Fatahillah Anugerah Nibras</p> -->
 
-                <div class="flex justify-center md:justify-start space-x-6 mb-8">
-                    <a href="mailto:muhnasirhasibuan@gmail.com" class="icon-link text-gray-500 hover:text-blue-500 text-3xl"><i class="fas fa-envelope"></i></a>
-                    <a href="https://linkedin.com/in/namaanda" target="_blank" class="icon-link text-gray-500 hover:text-blue-500 text-3xl"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://wa.me/6289629055652" target="_blank" class="icon-link text-gray-500 hover:text-blue-500 text-3xl"><i class="fab fa-whatsapp"></i></a>
-                </div>
+                <nav class="mt-6 animate-fade-in-up animation-delay-3">
+                    <ul class="flex flex-wrap justify-center md:justify-start space-x-6 text-xl font-medium">
+                        <li><a href="#tentang" class="hover:text-blue-200 transition duration-300 transform hover:scale-105">Tentang</a></li>
+                        <li><a href="#pengalaman" class="hover:text-blue-200 transition duration-300 transform hover:scale-105">Pengalaman</a></li>
+                        <li><a href="#keahlian" class="hover:text-blue-200 transition duration-300 transform hover:scale-105">Keahlian</a></li>
+                        <li><a href="#kontak" class="hover:text-blue-200 transition duration-300 transform hover:scale-105">Kontak</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
+    </header>
 
-        <hr class="border-t-2 border-gray-200 my-8">
+    <section id="tentang" class="container mx-auto px-6 py-16 my-16 bg-white rounded-xl shadow-2xl border-t-8 border-primary-blue reveal-on-scroll">
+        <h2 class="text-5xl font-bold text-primary-blue mb-10 text-center">Tentang Saya</h2>
+        <div class="text-lg leading-relaxed text-gray-700 max-w-4xl mx-auto text-center">
+            <p class="mb-6">
+                Saya adalah seorang <strong class="font-semibold text-primary-blue">profesional IT Support yang proaktif dan berorientasi solusi</strong> dengan pengalaman 7 (Tujuh) tahun dalam mengelola dan memelihara infrastruktur teknologi informasi. Saat ini, saya berdedikasi di <strong class="font-semibold text-primary-blue">PT Fatahillah Anugerah Nibras</strong>, bertanggung jawab penuh untuk memastikan kelancaran operasional sistem, stabilitas jaringan, dan efektivitas dukungan teknis bagi seluruh karyawan.
+            </p>
+            <p>
+                Keahlian saya mencakup <strong class="font-semibold text-primary-blue">diagnosis dan perbaikan hardware/software yang kompleks, administrasi jaringan dasar, serta manajemen sistem operasi dan aplikasi bisnis krusial</strong>. Saya sangat berkomitmen untuk memberikan pelayanan terbaik, menyelesaikan masalah dengan cepat dan efisien, serta secara aktif berkontribusi pada peningkatan performa teknologi perusahaan. Saya selalu antusias untuk terus belajar, mengadaptasi teknologi terbaru, dan mencari solusi inovatif untuk tantangan IT.
+            </p>
+        </div>
+    </section>
 
-        <div class="text-left relative z-10">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center justify-center md:justify-start">
-                <i class="fas fa-tools text-yellow-500 mr-3"></i> Keahlian Saya
-            </h2>
-            <div class="flex flex-wrap justify-center md:justify-start gap-3 mb-8">
-                <span class="skill-badge">Troubleshooting Hardware & Software</span>
-                <span class="skill-badge">Network Configuration</span>
-                <span class="skill-badge">Sistem Operasi (Windows/Linux/macOS)</span>
-                <span class="skill-badge">Manajemen Tiket & SLA</span>
-                <span class="skill-badge">Remote Support</span>
-                <span class="skill-badge">IT Security Basics</span>
-                <span class="skill-badge">Microsoft Office Suite</span>
-                <span class="skill-badge">User Training & Support</span>
-                <span class="skill-badge">Problem Solving</span>
-                <span class="skill-badge">Komunikasi Efektif</span>
-            </div>
+    <section id="pengalaman" class="container mx-auto px-6 py-16 my-16 bg-white rounded-xl shadow-2xl border-t-8 border-accent-green reveal-on-scroll">
+        <h2 class="text-5xl font-bold text-accent-green mb-10 text-center">Perjalanan Karir</h2>
+        
+        <div class="mb-10 p-8 bg-secondary-gray rounded-xl shadow-lg border-l-8 border-accent-green 
+                    transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl group">
+            <h3 class="text-3xl font-bold text-gray-900 mb-3 group-hover:text-primary-blue transition-colors duration-300">IT Support</h3>
+            <p class="text-xl text-gray-600 mb-5">PT Fatahillah Anugerah Nibras | Januari 2021 – Sekarang</p>
+            
+            <ul class="list-none space-y-4 text-lg text-gray-700">
+                <li class="flex items-start">
+                    <i class="fas fa-desktop text-accent-green mr-4 mt-1 opacity-70 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    <div class="flex-1">
+                        <span class="font-semibold text-gray-900 block md:inline-block w-full md:w-auto">Melakukan diagnosis, troubleshooting, dan perbaikan perangkat keras dan lunak:</span>
+                        <span class="ml-0 md:ml-2 block md:inline-block">(PC, laptop, server, OS Windows/Linux, aplikasi internal) untuk memastikan kelancaran operasional 50+ workstation.</span>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-network-wired text-accent-green mr-4 mt-1 opacity-70 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    <div class="flex-1">
+                        <span class="font-semibold text-gray-900 block md:inline-block w-full md:w-auto">Bertanggung jawab atas manajemen dan pemeliharaan jaringan:</span>
+                        <span class="ml-0 md:ml-2 block md:inline-block">(LAN, Wi-Fi, VPN), termasuk konfigurasi router/switch, pemantauan performa, dan pengamanan akses.</span>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-ticket-alt text-accent-green mr-4 mt-1 opacity-70 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    <div class="flex-1">
+                        <span class="font-semibold text-gray-900 block md:inline-block w-full md:w-auto">Menyediakan dukungan teknis superior:</span>
+                        <span class="ml-0 md:ml-2 block md:inline-block">kepada lebih dari 100 pengguna, menyelesaikan rata-rata 15 tiket per hari dengan tingkat kepuasan pengguna 95%.</span>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-cloud text-accent-green mr-4 mt-1 opacity-70 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    <div class="flex-1">
+                        <span class="font-semibold text-gray-900 block md:inline-block w-full md:w-auto">Mengelola dan mengadministrasikan platform kolaborasi cloud:</span>
+                        <span class="ml-0 md:ml-2 block md:inline-block">seperti Microsoft 365 (Exchange, Teams, OneDrive) dan Google Workspace, termasuk manajemen akun dan kebijakan.</span>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-file-alt text-accent-green mr-4 mt-1 opacity-70 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    <div class="flex-1">
+                        <span class="font-semibold text-gray-900 block md:inline-block w-full md:w-auto">Membangun dan memelihara dokumentasi teknis:</span>
+                        <span class="ml-0 md:ml-2 block md:inline-block">yang komprehensif, panduan pengguna, dan basis pengetahuan untuk efisiensi tim dan edukasi pengguna.</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
-            <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center justify-center md:justify-start">
-                <i class="fas fa-briefcase text-purple-500 mr-3"></i> Pengalaman Kerja
-            </h2>
-            <div class="mb-6">
-                <h3 class="text-2xl font-semibold text-gray-700 mb-1">IT Support</h3>
-                <p class="text-lg text-gray-600 mb-2">PT Fatahillah Anugerah Nibras, Tangerang Selatan</p>
-                <p class="text-md text-gray-500 italic mb-3">Januari 2021 - Now</p>
-                <ul class="list-disc list-inside text-gray-700 leading-relaxed space-y-2">
-                    <li>Memberikan dukungan teknis harian kepada lebih dari 80 pengguna dalam penggunaan perangkat keras, perangkat lunak, dan jaringan.</li>
-                    <li>Memecahkan masalah perangkat keras dan perangkat lunak dengan cepat dan efisien, meningkatkan produktivitas pengguna.</li>
-                    <li>Mengelola dan memelihara jaringan lokal, termasuk pemeliharaan rutin, pembaruan, dan pemecahan masalah.</li>
-                    <li>Menginstal, mengonfigurasi, dan memelihara perangkat keras, termasuk komputer, printer, dan perangkat jaringan.</li>
-                    <li>Melakukan pembaruan sistem operasi dan perangkat lunak secara berkala untuk memastikan Keamanan dan kinerja yang optimal.</li>
-                    <li>Menyediakan dukungan jarak jauh kepada pengguna melalui remote desktop dan perangkat lunak bantuan teknis.</li>
-                    <li>Mengelola inventaris perangkat keras dan perangkat lunak perusahaan.</li>
-                    <li>Melakukan pemeliharaan rutin pada perangkat keras, seperti membersihkan komputer dan mengganti suku cadang yang rusak.</li>
+        <div class="mb-10 p-8 bg-secondary-gray rounded-xl shadow-lg border-l-8 border-accent-green 
+                    transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl group">
+            <h3 class="text-3xl font-bold text-gray-900 mb-3 group-hover:text-primary-blue transition-colors duration-300">IT Support</h3>
+            <p class="text-xl text-gray-600 mb-5">PT Bicom Mitra Solusindo | Januari 2021 – Sekarang</p>
+            
+            <ul class="list-none space-y-4 text-lg text-gray-700">
+                <li class="flex items-start">
+                    <i class="fas fa-desktop text-accent-green mr-4 mt-1 opacity-70 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    <div class="flex-1">
+                        <span class="font-semibold text-gray-900 block md:inline-block w-full md:w-auto">Melakukan diagnosis, troubleshooting, dan perbaikan perangkat keras dan lunak:</span>
+                        <span class="ml-0 md:ml-2 block md:inline-block">(PC, laptop, server, OS Windows/Linux, aplikasi internal) untuk memastikan kelancaran operasional 50+ workstation.</span>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-network-wired text-accent-green mr-4 mt-1 opacity-70 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    <div class="flex-1">
+                        <span class="font-semibold text-gray-900 block md:inline-block w-full md:w-auto">Bertanggung jawab atas manajemen dan pemeliharaan jaringan:</span>
+                        <span class="ml-0 md:ml-2 block md:inline-block">(LAN, Wi-Fi, VPN), termasuk konfigurasi router/switch, pemantauan performa, dan pengamanan akses.</span>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-ticket-alt text-accent-green mr-4 mt-1 opacity-70 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    <div class="flex-1">
+                        <span class="font-semibold text-gray-900 block md:inline-block w-full md:w-auto">Menyediakan dukungan teknis superior:</span>
+                        <span class="ml-0 md:ml-2 block md:inline-block">kepada lebih dari 100 pengguna, menyelesaikan rata-rata 15 tiket per hari dengan tingkat kepuasan pengguna 95%.</span>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-cloud text-accent-green mr-4 mt-1 opacity-70 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    <div class="flex-1">
+                        <span class="font-semibold text-gray-900 block md:inline-block w-full md:w-auto">Mengelola dan mengadministrasikan platform kolaborasi cloud:</span>
+                        <span class="ml-0 md:ml-2 block md:inline-block">seperti Microsoft 365 (Exchange, Teams, OneDrive) dan Google Workspace, termasuk manajemen akun dan kebijakan.</span>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-file-alt text-accent-green mr-4 mt-1 opacity-70 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    <div class="flex-1">
+                        <span class="font-semibold text-gray-900 block md:inline-block w-full md:w-auto">Membangun dan memelihara dokumentasi teknis:</span>
+                        <span class="ml-0 md:ml-2 block md:inline-block">yang komprehensif, panduan pengguna, dan basis pengetahuan untuk efisiensi tim dan edukasi pengguna.</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="mb-10 p-8 bg-secondary-gray rounded-xl shadow-lg border-l-8 border-accent-green 
+                    transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl group">
+            <h3 class="text-3xl font-bold text-gray-900 mb-3 group-hover:text-primary-blue transition-colors duration-300">IT Helpdesk</h3>
+            <p class="text-xl text-gray-600 mb-5">PT Radian Asia Mandiri | Januari 2021 – Sekarang</p>
+            
+            <ul class="list-none space-y-4 text-lg text-gray-700">
+                <li class="flex items-start">
+                    <i class="fas fa-desktop text-accent-green mr-4 mt-1 opacity-70 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    <div class="flex-1">
+                        <span class="font-semibold text-gray-900 block md:inline-block w-full md:w-auto">Melakukan diagnosis, troubleshooting, dan perbaikan perangkat keras dan lunak:</span>
+                        <span class="ml-0 md:ml-2 block md:inline-block">(PC, laptop, server, OS Windows/Linux, aplikasi internal) untuk memastikan kelancaran operasional 50+ workstation.</span>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-network-wired text-accent-green mr-4 mt-1 opacity-70 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    <div class="flex-1">
+                        <span class="font-semibold text-gray-900 block md:inline-block w-full md:w-auto">Bertanggung jawab atas manajemen dan pemeliharaan jaringan:</span>
+                        <span class="ml-0 md:ml-2 block md:inline-block">(LAN, Wi-Fi, VPN), termasuk konfigurasi router/switch, pemantauan performa, dan pengamanan akses.</span>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-ticket-alt text-accent-green mr-4 mt-1 opacity-70 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    <div class="flex-1">
+                        <span class="font-semibold text-gray-900 block md:inline-block w-full md:w-auto">Menyediakan dukungan teknis superior:</span>
+                        <span class="ml-0 md:ml-2 block md:inline-block">kepada lebih dari 100 pengguna, menyelesaikan rata-rata 15 tiket per hari dengan tingkat kepuasan pengguna 95%.</span>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-cloud text-accent-green mr-4 mt-1 opacity-70 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    <div class="flex-1">
+                        <span class="font-semibold text-gray-900 block md:inline-block w-full md:w-auto">Mengelola dan mengadministrasikan platform kolaborasi cloud:</span>
+                        <span class="ml-0 md:ml-2 block md:inline-block">seperti Microsoft 365 (Exchange, Teams, OneDrive) dan Google Workspace, termasuk manajemen akun dan kebijakan.</span>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-file-alt text-accent-green mr-4 mt-1 opacity-70 group-hover:opacity-100 transition-opacity duration-300"></i>
+                    <div class="flex-1">
+                        <span class="font-semibold text-gray-900 block md:inline-block w-full md:w-auto">Membangun dan memelihara dokumentasi teknis:</span>
+                        <span class="ml-0 md:ml-2 block md:inline-block">yang komprehensif, panduan pengguna, dan basis pengetahuan untuk efisiensi tim dan edukasi pengguna.</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        </section>
+
+    <section id="keahlian" class="container mx-auto px-6 py-16 my-16 bg-white rounded-xl shadow-2xl border-t-8 border-primary-blue reveal-on-scroll">
+        <h2 class="text-5xl font-bold text-primary-blue mb-10 text-center">Keahlian Utama Saya</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <div class="bg-secondary-gray p-8 rounded-xl shadow-md border-b-4 border-primary-blue hover:shadow-xl transition-shadow duration-300 group">
+                <h3 class="text-2xl font-bold text-gray-900 mb-5 flex items-center"><i class="fas fa-cogs text-primary-blue mr-4 text-3xl group-hover:scale-110 transition-transform duration-300"></i>Keahlian Teknis</h3>
+                <ul class="list-none space-y-4 text-lg text-gray-700">
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-accent-green mr-3 mt-1"></i>
+                        <div class="flex-1">
+                            <strong class="font-semibold text-gray-900">Sistem Operasi:</strong> <span class="block md:inline-block ml-0 md:ml-1">Windows Server & Client, Linux (Ubuntu, CentOS), macOS</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-accent-green mr-3 mt-1"></i>
+                        <div class="flex-1">
+                            <strong class="font-semibold text-gray-900">Jaringan:</strong> <span class="block md:inline-block ml-0 md:ml-1">Konfigurasi Router/Switch, VLAN, Firewall, VPN, DNS, DHCP</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-accent-green mr-3 mt-1"></i>
+                        <div class="flex-1">
+                            <strong class="font-semibold text-gray-900">Cloud Services:</strong> <span class="block md:inline-block ml-0 md:ml-1">Microsoft 365 Admin, Google Workspace Admin</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-accent-green mr-3 mt-1"></i>
+                        <div class="flex-1">
+                            <strong class="font-semibold text-gray-900">Hardware:</strong> <span class="block md:inline-block ml-0 md:ml-1">Diagnosis & Perbaikan PC, Laptop, Printer, Server</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-accent-green mr-3 mt-1"></i>
+                        <div class="flex-1">
+                            <strong class="font-semibold text-gray-900">Virtualisasi:</strong> <span class="block md:inline-block ml-0 md:ml-1">VMware Workstation, VirtualBox (Dasar)</span>
+                        </div>
+                    </li>
                 </ul>
             </div>
-            <div class="mb-6"></div>
-                <h3 class="text-2xl font-semibold text-gray-700 mb-1">IT Support</h3>
-                <p class="text-lg text-gray-600 mb-2">PT Bicom Mitra Solusindo, Jakarta Barat</p>
-                <p class="text-md text-gray-500 italic mb-3">Desember 2018 - September 2020</p>
-                <ul class="list-disc list-inside text-gray-700 leading-relaxed space-y-2">
-                    <li>Memberikan dukungan teknis harian kepada lebih dari 200 pengguna, menyelesaikan masalah hardware, software, dan jaringan dengan tingkat kepuasan tinggi.</li>
-                    <li>Melakukan instalasi, konfigurasi, dan pemeliharaan sistem operasi serta aplikasi untuk memastikan operasional yang lancar.</li>
-                    <li>Mengelola sistem tiket dan memprioritaskan insiden untuk memenuhi Service Level Agreement (SLA).</li>
-                    <li>Melatih pengguna mengenai praktik terbaik IT untuk meningkatkan kemandirian dan mengurangi insiden berulang.</li>
+
+            <div class="bg-secondary-gray p-8 rounded-xl shadow-md border-b-4 border-accent-green hover:shadow-xl transition-shadow duration-300 group">
+                <h3 class="text-2xl font-bold text-gray-900 mb-5 flex items-center"><i class="fas fa-laptop-code text-accent-green mr-4 text-3xl group-hover:scale-110 transition-transform duration-300"></i>Software & Tools</h3>
+                <ul class="list-none space-y-4 text-lg text-gray-700">
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-accent-green mr-3 mt-1"></i>
+                        <div class="flex-1">
+                            <strong class="font-semibold text-gray-900">Remote Access:</strong> <span class="block md:inline-block ml-0 md:ml-1">AnyDesk, TeamViewer, RDP, Ultraviewer</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-accent-green mr-3 mt-1"></i>
+                        <div class="flex-1">
+                            <strong class="font-semibold text-gray-900">Ticketing Systems:</strong> <span class="block md:inline-block ml-0 md:ml-1">Jira Service Desk, Freshdesk, Zendesk</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-accent-green mr-3 mt-1"></i>
+                        <div class="flex-1">
+                            <strong class="font-semibold text-gray-900">Monitoring:</strong> <span class="block md:inline-block ml-0 md:ml-1">Zabbix (Dasar), Nagios (Dasar)</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-accent-green mr-3 mt-1"></i>
+                        <div class="flex-1">
+                            <strong class="font-semibold text-gray-900">Backup & Recovery:</strong> <span class="block md:inline-block ml-0 md:ml-1">Veeam, Acronis, cobian </span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-accent-green mr-3 mt-1"></i>
+                        <div class="flex-1">
+                            <strong class="font-semibold text-gray-900">Command Line:</strong> <span class="block md:inline-block ml-0 md:ml-1">PowerShell, Bash (Dasar)</span>
+                        </div>
+                    </li>
                 </ul>
             </div>
-            <div class="text-center md:text-left mt-10">
-                <a href="#" class="active-btn inline-block">Lihat CV Lengkap Saya! <i class="fas fa-download ml-2"></i></a>
+
+            <div class="bg-secondary-gray p-8 rounded-xl shadow-md border-b-4 border-accent-purple hover:shadow-xl transition-shadow duration-300 group">
+                <h3 class="text-2xl font-bold text-gray-900 mb-5 flex items-center"><i class="fas fa-comments text-accent-purple mr-4 text-3xl group-hover:scale-110 transition-transform duration-300"></i>Keahlian Non-Teknis</h3>
+                <ul class="list-none space-y-4 text-lg text-gray-700">
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-accent-green mr-3 mt-1"></i>
+                        <div class="flex-1">
+                            <strong class="font-semibold text-gray-900">Komunikasi Superior:</strong> <span class="block md:inline-block ml-0 md:ml-1">Mampu menjelaskan masalah teknis dengan bahasa awam.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-accent-green mr-3 mt-1"></i>
+                        <div class="flex-1">
+                            <strong class="font-semibold text-gray-900">Problem Solving Kreatif:</strong> <span class="block md:inline-block ml-0 md:ml-1">Menemukan solusi inovatif untuk tantangan kompleks.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-accent-green mr-3 mt-1"></i>
+                        <div class="flex-1">
+                            <strong class="font-semibold text-gray-900">Orientasi Pelayanan Pelanggan:</strong> <span class="block md:inline-block ml-0 md:ml-1">Fokus pada kepuasan dan pengalaman pengguna.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-accent-green mr-3 mt-1"></i>
+                        <div class="flex-1">
+                            <strong class="font-semibold text-gray-900">Manajemen Waktu Efisien:</strong> <span class="block md:inline-block ml-0 md:ml-1">Prioritasi tugas di lingkungan yang dinamis.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-accent-green mr-3 mt-1"></i>
+                        <div class="flex-1">
+                            <strong class="font-semibold text-gray-900">Adaptabilitas & Pembelajaran Cepat:</strong> <span class="block md:inline-block ml-0 md:ml-1">Cepat beradaptasi dengan teknologi baru.</span>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
+    </section>
+
+    <section id="kontak" class="bg-accent-purple text-white py-16 px-6 mt-16 text-center shadow-inner rounded-t-xl reveal-on-scroll">
+        <div class="container mx-auto max-w-3xl">
+            <h2 class="text-5xl font-bold mb-8 animate-fade-in-up">Mari Terhubung!</h2>
+            <p class="text-xl mb-10 leading-relaxed animate-fade-in-up animation-delay-1">
+                Saya sangat senang berdiskusi tentang bagaimana keahlian IT Support saya dapat memberikan nilai tambah bagi organisasi Anda. Jangan ragu untuk menjangkau saya!
+            </p>
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4 animate-fade-in-up animation-delay-2">
+                <a href="mailto:muhnasirhasibuan@gmail.com" 
+                   class="inline-flex items-center justify-center bg-white text-accent-purple py-4 px-6 rounded-full text-xl font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg min-w-[200px]">
+                    <i class="fas fa-envelope mr-3 text-2xl"></i>
+                    <span>Kirim Email</span>
+                </a>
+                <a href="https://linkedin.com/in/muhammad-nasir-hasibuan-80986b103" target="_blank" rel="noopener noreferrer" 
+                   class="inline-flex items-center justify-center bg-primary-blue text-white py-4 px-6 rounded-full text-xl font-semibold hover:bg-blue-600 transition-all duration-300 transform hover:scale-105 shadow-lg min-w-[200px]">
+                    <i class="fab fa-linkedin mr-3 text-2xl"></i>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://wa.me/6289629055652" target="_blank" rel="noopener noreferrer" 
+                   class="inline-flex items-center justify-center bg-green-500 text-white py-4 px-6 rounded-full text-xl font-semibold hover:bg-green-600 transition-all duration-300 transform hover:scale-105 shadow-lg min-w-[200px]">
+                    <i class="fab fa-whatsapp mr-3 text-2xl"></i>
+                    <span>WhatsApp</span>
+                </a>
+                <a href="https://github.com/rootnsr" target="_blank" rel="noopener noreferrer" 
+                   class="inline-flex items-center justify-center bg-gray-800 text-white py-4 px-6 rounded-full text-xl font-semibold hover:bg-gray-900 transition-all duration-300 transform hover:scale-105 shadow-lg min-w-[200px]">
+                    <i class="fab fa-github mr-3 text-2xl"></i>
+                    <span>GitHub</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400 py-8 text-center text-sm shadow-inner">
+        <div class="container mx-auto">
+            &copy; 2025 Muhammad Nasir. Semua Hak Dilindungi. Dibuat dengan <i class="fas fa-heart text-red-500 mx-1"></i> dan <span class="font-bold">Tailwind CSS</span>.
+        </div>
+    </footer>
+
+    <button id="scrollTopButton" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Scroll Reveal Animation ---
+            const sections = document.querySelectorAll('.reveal-on-scroll');
+
+            const observerOptions = {
+                threshold: 0.15 // Trigger when 15% of the element is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Stop observing once visible
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // --- Scroll to Top Button Logic ---
+            const scrollTopButton = document.getElementById('scrollTopButton');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) { // Show button after scrolling 300px
+                    scrollTopButton.classList.add('show');
+                } else {
+                    scrollTopButton.classList.remove('show');
+                }
+            });
+
+            scrollTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth' // Smooth scroll animation
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>
